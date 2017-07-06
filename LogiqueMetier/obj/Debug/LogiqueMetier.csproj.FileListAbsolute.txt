@@ -1,0 +1,5 @@
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LogiqueMetier\bin\Debug\LogiqueMetier.dll
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LogiqueMetier\bin\Debug\LogiqueMetier.pdb
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LogiqueMetier\obj\Debug\LogiqueMetier.csprojResolveAssemblyReference.cache
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LogiqueMetier\obj\Debug\LogiqueMetier.dll
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LogiqueMetier\obj\Debug\LogiqueMetier.pdb

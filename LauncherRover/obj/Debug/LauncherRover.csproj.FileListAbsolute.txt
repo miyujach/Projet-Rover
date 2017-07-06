@@ -1,0 +1,5 @@
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LauncherRover\obj\Debug\LauncherRover.csprojResolveAssemblyReference.cache
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LauncherRover\obj\Debug\Plateau.g.cs
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LauncherRover\obj\Debug\App.g.cs
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LauncherRover\obj\Debug\LauncherRover_MarkupCompile.cache
+C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\LauncherRover\obj\Debug\LauncherRover_MarkupCompile.lref
