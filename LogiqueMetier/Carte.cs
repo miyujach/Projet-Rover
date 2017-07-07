@@ -10,12 +10,12 @@ namespace LogiqueMetier
     public class Carte : ICarte
     {
         private int height,  width, pourcentageObstacle;
-        private Coordonnee coordonnees;
+        private ICoordonnee coordonnees;
         private Rover rover;
 
         // ------------------------ //
-        // -- START Constructeur -- //
-        public Coordonnee Coordonnees
+        // -- START Accesseur  -- //
+        public ICoordonnee Coordonnees
         {
             get
             {
@@ -27,7 +27,7 @@ namespace LogiqueMetier
                 coordonnees = value;
             }
         }
-        // -- END Constructeur -- //
+        // -- END Accesseur -- //
         // ---------------------- //
 
         public Carte(int width, int height, int pourcentage)
@@ -41,7 +41,7 @@ namespace LogiqueMetier
         public Boolean generateRandomObstacle(int x, int y)
         {
             Boolean isObstacleSet = false;
-            Thread.Sleep(100);
+            Thread.Sleep(10);
             if (new Random().Next(100) < this.pourcentageObstacle)
             {                
                 for (int yCoordonnnees = 0; yCoordonnnees < height; yCoordonnnees++)
@@ -85,8 +85,7 @@ namespace LogiqueMetier
             if (isEmpty(x, y))
             {
                 this.rover = rover;
-
-                // On ajoute le rover à l'emplacement spécifié
+                rover.setPosition(x, y);
                 Coordonnees.Coordoonees[this.height * y + x] = rover;
                 return true;
             }else

@@ -10,5 +10,8 @@ namespace LogiqueMetier
     {
         IElement getCoordonnee(int x, int y);
         List<IElement> getNeightborhood(int x, int y);
+        int[] validCoordonnee(int x, int y);
+        int Height { get; }
+        List<IElement> Coordoonees { get; set; }
     }
 }

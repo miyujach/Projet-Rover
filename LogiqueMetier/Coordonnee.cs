@@ -17,7 +17,7 @@ namespace LogiqueMetier
 
 
         // ------------------------ //
-        // -- START Constructeur -- //
+        // -- START Accesseur -- //
         public List<IElement> Coordoonees
         {
             get
@@ -30,10 +30,19 @@ namespace LogiqueMetier
                 coordoonees = value;
             }
         }
-        // -- END Constructeur -- //
+
+        public int Height
+        {
+            get
+            {
+                return height;
+            }
+        }
+
+        // -- END Accesseur -- //
         // ---------------------- //
 
-                
+
 
         public Coordonnee(int width, int height)
         {
@@ -43,7 +52,7 @@ namespace LogiqueMetier
              
             List<IElement> coordonnee = new List<IElement>();
             
-            for (int y = 0; y < this.height; y++)
+            for (int y = 0; y < this.Height; y++)
             {
                 for (int x = 0; x < this.width; x++)
                 {
@@ -60,14 +69,15 @@ namespace LogiqueMetier
             //Il List faut que je return le bon index de la list en fonction de X et de Y
             //index = nbLigne * Ligne + Colone --> height * y + x
             Console.Write("-");
-            return this.coordoonees[this.height*y + x];
+            int indexCollection = (this.Height -1) * y + x;
+            return this.coordoonees[(this.Height - 1) * y + x];
         }
 
         public List<IElement> getNeightborhood(int x, int y)
         {
             List<IElement> neitghtborhoorCoordonnee = new List<IElement>();
             int limiteTableauX = this.width - 1,
-                limiteTableauY = this.height - 1;
+                limiteTableauY = this.Height - 1;
             //Top
             if (y - 1 < 0)
             {
@@ -118,6 +128,39 @@ namespace LogiqueMetier
             return neitghtborhoorCoordonnee;
         }
 
-        
+        public int[] validCoordonnee(int x, int y)
+        {
+            int limiteTableauX = this.width - 1,
+                limiteTableauY = this.Height - 1;
+
+            int[] indexValid = new int[2];
+
+            if (x < 0)
+            {
+                x = limiteTableauX;
+            }
+
+            if (x > limiteTableauX)
+            {
+                x = 0;
+            }
+
+            if (y < 0)
+            {
+                y = limiteTableauY;
+            }
+
+            if (y > limiteTableauY)
+            {
+                y = 0;
+            }
+
+            indexValid[0] = x;
+            indexValid[1] = y;
+            Console.WriteLine("Values {0}, {1}", x, y);
+
+            return indexValid;
+        }
+
     }
 }

@@ -11,31 +11,52 @@ namespace Projet_Rover
     {
         public static void Main(string[] args)
         {
+            
             int width = 10, height = 10, pourcentage = 25;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
-            Coordonnee coordonnees = carte.Coordonnees;
-            Rover rover = new Rover(carte);
-            carte.addRover(9, 0, rover);
-                        
+            ICoordonnee coordonnees = carte.Coordonnees;
+
+            Graph graph = new Graph();
+            Rover rover = new Rover(carte, graph);
+            carte.addRover(0, 0, rover);
+
+
             sequenceMouvement.Add("t");
             sequenceMouvement.Add("t");
-            sequenceMouvement.Add("l");
-            sequenceMouvement.Add("l");
             rover.moveSequence(sequenceMouvement);
+            rover.moveTo(10, 10);
 
             // AJouter les obstacle 
-
             //carte.addElement(1, 1, rover);
 
             for (int y =0; y < height; y++ )
             {
-                for (int x = 0; x < height; x++)
+                for (int x = 0; x < width; x++)
                 {
                     // Il faut ajouter un obstacle ici
-                    carte.generateRandomObstacle(x, y);
-                    Console.Write(coordonnees.getCoordonnee(x, y) + " ");
+                    Console.WriteLine(height * y + x);
+                    //carte.generateRandomObstacle(x, y);
+                    //Console.Write(coordonnees.getCoordonnee(x, y) + " ");
+                }
+                Console.WriteLine();
+            }
+
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Il faut ajouter un obstacle ici
+                    List<IElement> voisinageCaseEnCour = carte.Coordonnees.getNeightborhood(x, y);
+                    Dictionary<IElement, int> dico = new Dictionary<IElement, int>();
+                    foreach (IElement voisin in voisinageCaseEnCour)
+                    {
+                        dico.Add(voisin, 1);
+                    }
+
+                    //graph.add_vertex(carte.Coordonnees.getCoordonnee(x, y), dico);
                 }
                 Console.WriteLine();
             }
@@ -47,20 +68,10 @@ namespace Projet_Rover
                 Console.WriteLine("Voisin : " + item);
             }
 
-
-            // On affiche la carte
-            /*
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < height; x++)
-                {
-                    // Il faut ajouter un obstacle ici
-                    carte.generateRandomObstacle(x, y);
-                }
-            }
-            */
+            
 
             Console.ReadLine();
+            
         }
     }
 }
