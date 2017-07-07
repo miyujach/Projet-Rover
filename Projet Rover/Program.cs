@@ -12,7 +12,7 @@ namespace Projet_Rover
         public static void Main(string[] args)
         {
             
-            int width = 10, height = 10, pourcentage = 25;
+            int width = 10, height = 10, pourcentage = 20;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
@@ -26,7 +26,6 @@ namespace Projet_Rover
             sequenceMouvement.Add("t");
             sequenceMouvement.Add("t");
             rover.moveSequence(sequenceMouvement);
-            rover.moveTo(10, 10);
 
             // AJouter les obstacle 
             //carte.addElement(1, 1, rover);
@@ -36,9 +35,9 @@ namespace Projet_Rover
                 for (int x = 0; x < width; x++)
                 {
                     // Il faut ajouter un obstacle ici
-                    Console.WriteLine(height * y + x);
-                    //carte.generateRandomObstacle(x, y);
-                    //Console.Write(coordonnees.getCoordonnee(x, y) + " ");
+                    //Console.WriteLine(height * y + x);
+                    carte.generateRandomObstacle(x, y);
+                    Console.Write(coordonnees.getCoordonnee(x, y) + " ");
                 }
                 Console.WriteLine();
             }
@@ -53,13 +52,17 @@ namespace Projet_Rover
                     Dictionary<IElement, int> dico = new Dictionary<IElement, int>();
                     foreach (IElement voisin in voisinageCaseEnCour)
                     {
+                        // La valeur ne peut pas être null (voisin), cela vient du fait que quand je spawn le carte, j'initialise toutes les cases à null le premier coup
                         dico.Add(voisin, 1);
                     }
 
-                    //graph.add_vertex(carte.Coordonnees.getCoordonnee(x, y), dico);
+                    graph.add_vertex(carte.Coordonnees.getCoordonnee(x, y), dico);
                 }
                 Console.WriteLine();
             }
+
+            rover.moveTo(9, 9);
+
 
 
             List<IElement> neightborhood = coordonnees.getNeightborhood(0, 0);

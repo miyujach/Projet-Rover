@@ -69,8 +69,7 @@ namespace LogiqueMetier
             //Il List faut que je return le bon index de la list en fonction de X et de Y
             //index = nbLigne * Ligne + Colone --> height * y + x
             Console.Write("-");
-            int indexCollection = (this.Height -1) * y + x;
-            return this.coordoonees[(this.Height - 1) * y + x];
+            return this.coordoonees[(this.height - 1) * y + x];
         }
 
         public List<IElement> getNeightborhood(int x, int y)
