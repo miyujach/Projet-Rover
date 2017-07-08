@@ -18,7 +18,7 @@ namespace Projet_Rover
             Carte carte = new Carte(width, height, pourcentage);
             ICoordonnee coordonnees = carte.Coordonnees;
 
-            Graph graph = new Graph();
+            Graph graph = new Graph(carte);
             Rover rover = new Rover(carte, graph);
             carte.addRover(0, 0, rover);
 
@@ -41,12 +41,9 @@ namespace Projet_Rover
                 Console.WriteLine();
             }
 
-            coordonnees.generateGraph();
-
-
-
-
-            rover.moveTo(4, 9);
+            //coordonnees.generateGraph();
+            graph.generateGraph();
+            rover.moveTo(4, 4);
 
 
             /*

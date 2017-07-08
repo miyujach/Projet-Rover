@@ -8,71 +8,51 @@ namespace LogiqueMetier
 {
     public class Graph
     {
-        Dictionary<IElement, Dictionary<IElement, int>> vertices = new Dictionary<IElement, Dictionary<IElement, int>>();
+        private ICarte carte;
 
-        public void add_vertex(IElement name, Dictionary<IElement, int> edges)
+        public Graph(ICarte carte)
         {
-            vertices[name] = edges;
+            this.carte = carte;
         }
 
-        public List<IElement> shortest_path(IElement start, IElement finish)
+
+        public List<Dictionary<int[], Dictionary<int[], int>>> generateGraph()
         {
-            var previous = new Dictionary<IElement, IElement>();
-            var distances = new Dictionary<IElement, int>();
-            var nodes = new List<IElement>();
+            //List<List<NeightborhoodInfos>> graph = new List<List<NeightborhoodInfos>>();
+            List<Dictionary<int[], Dictionary<int[], int>>> graph = new List<Dictionary<int[], Dictionary<int[], int>>>();
+            Dictionary<int[], Dictionary<int[], int>> vertices = new Dictionary<int[], Dictionary<int[], int>>();
 
-            List<IElement> path = null;
-
-            foreach (var vertex in vertices)
+            for (int y = 0; y < carte.Height; y++)
             {
-                if (vertex.Key == start)
+                for (int x = 0; x < carte.Width; x++)
                 {
-                    distances[vertex.Key] = 0;
-                }
-                else
-                {
-                    distances[vertex.Key] = int.MaxValue;
-                }
+                    List<NeightborhoodInfos> voisinageCaseEnCour = carte.Coordonnees.getNeightborhood(x, y);
 
-                nodes.Add(vertex.Key);
-            }
 
-            while (nodes.Count != 0)
-            {
-                nodes.Sort((x, y) => distances[x] - distances[y]);
-
-                var smallest = nodes[0];
-                nodes.Remove(smallest);
-
-                if (smallest == finish)
-                {
-                    path = new List<IElement>();
-                    while (previous.ContainsKey(smallest))
+                    //voisinsDuPointEnCour =  { [x, y], ponderation };
+                    Dictionary<int[], int> voisinsDuPointEnCour = new Dictionary<int[], int>();
+                    foreach (NeightborhoodInfos voisin in voisinageCaseEnCour)
                     {
-                        path.Add(smallest);
-                        smallest = previous[smallest];
+                        if (voisin.indexElement == null || voisin.indexElement is IRover)
+                        {
+                            Console.WriteLine("CaseEnCour : [" + x + "," + y + "] | Case analysée : [" + voisin.xIndexCase + "," + voisin.yIndexCase + "] - Ponderation case = " + voisin.ponderation);
+                            voisinsDuPointEnCour.Add(new int[] { voisin.xIndexCase, voisin.yIndexCase }, voisin.ponderation);
+                        }
                     }
+                    Console.WriteLine("----");
 
-                    break;
-                }
 
-                if (distances[smallest] == int.MaxValue)
-                {
-                    break;
-                }
+                    //vertices = ([x,y], { { [x, y], ponderation }, { [x, y], ponderation } });
+                    vertices.Add(new int[] { x, y }, voisinsDuPointEnCour);
 
-                foreach (var neighbor in vertices[smallest])
-                {
-                    var alt = distances[smallest] + neighbor.Value;
-                    if (alt < distances[neighbor.Key])
-                    {
-                        distances[neighbor.Key] = alt;
-                        previous[neighbor.Key] = smallest;
-                    }
+                    //Liste de l'ensemble des vertex de la carte
+                    //Représente toutes les routes entre les points (vides) avec les ponderations
+                    graph.Add(vertices);
                 }
             }
-
-            return path;
+            return graph;
         }
+
+
     }
 }

@@ -15,6 +15,8 @@ namespace LogiqueMetier
         Boolean addObstacle(int x, int y);
         IRover getRover();
         ICoordonnee Coordonnees { get; set; }
+        int Width { get; }
+        int Height { get; }
 
     }
 }

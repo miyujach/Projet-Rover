@@ -78,21 +78,24 @@ namespace LogiqueMetier
 
             //Il List faut que je return le bon index de la list en fonction de X et de Y
             //index = nbLigne * Ligne + Colone --> height * y + x
-            Console.Write("-");
             int indexList = (this.height) * y + x;
-            Console.WriteLine("Get coordonnées à l'index suivant : height = {0} - x = {1} - y = {2} || index {3}", this.height, x, y, indexList);
+            //Console.WriteLine("Get coordonnées à l'index suivant : height = {0} - x = {1} - y = {2} || index {3}", this.height, x, y, indexList);
+
+            if (this.coordoonees[indexList] == null)
+            {
+
+                Console.Write("-");
+            }
 
             try
             {
-                return this.coordoonees[indexList];
+                return this.coordoonees[(this.height) * y + x];
             }
             catch (System.ArgumentOutOfRangeException e)
             {
                 System.Console.WriteLine(e.Message);
-                throw new System.ArgumentOutOfRangeException("Les coordonnées recherchées sont en dehors de la carte.", e);
+                throw new System.ArgumentOutOfRangeException("Recherche coordonnées (getCoordonnee): Les coordonnées recherchées sont en dehors de la carte.", e);
             }
-
-
         }
         
 
@@ -105,115 +108,125 @@ namespace LogiqueMetier
 
             List<NeightborhoodInfos> informationsVoisinage = new List<NeightborhoodInfos>();
 
-            //Top
-            if (y - 1 < 0)
+            try
             {
-                int xVoisin = x, yVoisin = limiteTableauY;
-                int ponderation = 1;
+                //Top
+                if (y - 1 < 0)
+                {
+                    int xVoisin = x, yVoisin = limiteTableauY;
+                    int ponderation = 1;
 
-                NeightborhoodInfos informationVoisinTop = new NeightborhoodInfos();
-                informationVoisinTop.ponderation = ponderation;
-                informationVoisinTop.xIndexCase = xVoisin;
-                informationVoisinTop.yIndexCase = yVoisin;
-                informationVoisinTop.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisinTop);
+                    NeightborhoodInfos informationVoisinTop = new NeightborhoodInfos();
+                    informationVoisinTop.ponderation = ponderation;
+                    informationVoisinTop.xIndexCase = xVoisin;
+                    informationVoisinTop.yIndexCase = yVoisin;
+                    informationVoisinTop.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisinTop);
+                }
+                else
+                {
+                    int xVoisin = x, yVoisin = y - 1;
+                    int ponderation = 2;
+
+                    NeightborhoodInfos informationVoisinTop = new NeightborhoodInfos();
+                    informationVoisinTop.ponderation = ponderation;
+                    informationVoisinTop.xIndexCase = xVoisin;
+                    informationVoisinTop.yIndexCase = yVoisin;
+                    informationVoisinTop.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisinTop);
+                }
+
+
+
+                //Bottom
+                if (y + 1 > limiteTableauY)
+                {
+                    int xVoisin = x, yVoisin = 0;
+                    int ponderation = 1;
+
+                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisin);
+                }
+                else
+                {
+                    int xVoisin = x, yVoisin = y + 1;
+                    int ponderation = 2;
+
+                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisin);
+                }
+
+
+                //Left
+                if (x - 1 < 0)
+                {
+                    int xVoisin = limiteTableauX, yVoisin = y;
+                    int ponderation = 1;
+
+                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisin);
+                }
+                else
+                {
+                    int xVoisin = x - 1, yVoisin = y;
+                    int ponderation = 2;
+
+                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisin);
+                }
+
+
+
+                //Right
+                if (x + 1 > limiteTableauX)
+                {
+                    int xVoisin = 0, yVoisin = y;
+                    int ponderation = 1;
+
+                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisin);
+                }
+                else
+                {
+                    int xVoisin = x + 1, yVoisin = y;
+                    int ponderation = 2;
+
+                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationsVoisinage.Add(informationVoisin);
+                }
+                return informationsVoisinage;
             }
-            else
+            catch (System.ArgumentOutOfRangeException e)
             {
-                int xVoisin = x, yVoisin = y - 1;
-                int ponderation = 2;
-
-                NeightborhoodInfos informationVoisinTop = new NeightborhoodInfos();
-                informationVoisinTop.ponderation = ponderation;
-                informationVoisinTop.xIndexCase = xVoisin;
-                informationVoisinTop.yIndexCase = yVoisin;
-                informationVoisinTop.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisinTop);
+                System.Console.WriteLine(e.Message);
+                throw new System.ArgumentOutOfRangeException("Recherche voisinage (getNeightborhood): Les coordonnées du point n'existe pas sur le carte", e);
             }
 
-
-
-            //Bottom
-            if (y + 1 > limiteTableauY)
-            {
-                int xVoisin = x, yVoisin = 0;
-                int ponderation = 1;
-
-                NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
-                informationVoisin.ponderation = ponderation;
-                informationVoisin.xIndexCase = xVoisin;
-                informationVoisin.yIndexCase = yVoisin;
-                informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisin);
-            }
-            else
-            {
-                int xVoisin = x, yVoisin = y + 1;
-                int ponderation = 2;
-
-                NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
-                informationVoisin.ponderation = ponderation;
-                informationVoisin.xIndexCase = xVoisin;
-                informationVoisin.yIndexCase = yVoisin;
-                informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisin);
-            }
-
-
-            //Left
-            if (x - 1 < 0)
-            {
-                int xVoisin = limiteTableauX, yVoisin = y;
-                int ponderation = 1;
-
-                NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
-                informationVoisin.ponderation = ponderation;
-                informationVoisin.xIndexCase = xVoisin;
-                informationVoisin.yIndexCase = yVoisin;
-                informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisin);
-            }
-            else
-            {
-                int xVoisin = x - 1, yVoisin = y;
-                int ponderation = 2;
-
-                NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
-                informationVoisin.ponderation = ponderation;
-                informationVoisin.xIndexCase = xVoisin;
-                informationVoisin.yIndexCase = yVoisin;
-                informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisin);
-            }
-
-
-
-            //Right
-            if (x + 1 > limiteTableauX)
-            {
-                int xVoisin = 0, yVoisin = y;
-                int ponderation = 1;
-
-                NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
-                informationVoisin.ponderation = ponderation;
-                informationVoisin.xIndexCase = xVoisin;
-                informationVoisin.yIndexCase = yVoisin;
-                informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisin);
-            }
-            else
-            {
-                int xVoisin = x + 1, yVoisin = y;
-                int ponderation = 2;
-
-                NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
-                informationVoisin.ponderation = ponderation;
-                informationVoisin.xIndexCase = xVoisin;
-                informationVoisin.yIndexCase = yVoisin;
-                informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
-                informationsVoisinage.Add(informationVoisin);
-            }
-            return informationsVoisinage;
+            
         }
 
         public int[] validCoordonnee(int x, int y)
@@ -248,44 +261,6 @@ namespace LogiqueMetier
             Console.WriteLine("Values {0}, {1}", x, y);
 
             return indexValid;
-        }
-
-        public List<Dictionary<int[], Dictionary<int[], int>>> generateGraph()
-        {
-           //List<List<NeightborhoodInfos>> graph = new List<List<NeightborhoodInfos>>();
-            List<Dictionary<int[], Dictionary<int[], int>>> graph = new List<Dictionary<int[], Dictionary<int[], int>>>();
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    List<NeightborhoodInfos> voisinageCaseEnCour = getNeightborhood(x, y);
-                    //graph.Add(voisinageCaseEnCour);
-                    
-                    
-                    Dictionary<int[], int> voisinsDuPointEnCour = new Dictionary<int[], int>();
-                    //voisinsDuPointEnCour =  { [x, y], ponderation };
-                    foreach (NeightborhoodInfos voisin in voisinageCaseEnCour)
-                    {
-                        if (voisin.indexElement == null || voisin.indexElement is IRover)
-                        {
-                            
-                            Console.WriteLine("CaseEnCour : ["+ x + "," + y + "] | Case analysée : [" + voisin.xIndexCase + "," + voisin.yIndexCase + "] - Ponderation case = " + voisin.ponderation);
-                            voisinsDuPointEnCour.Add(new int[] { voisin.xIndexCase, voisin.yIndexCase }, voisin.ponderation);
-                        }
-                    }
-                    Console.WriteLine("----");
-
-
-                    Dictionary<int[], Dictionary<int[], int>> vertices = new Dictionary<int[], Dictionary<int[], int>>();
-                    //vertices = ([x,y], { { [x, y], ponderation }, { [x, y], ponderation } });
-                    vertices.Add(new int[] {x,y}, voisinsDuPointEnCour);
-
-                    //Liste de l'ensemble des vertex de la carte
-                    //Représente toutes les routes entre les points (vides avec les ponderations
-                    graph.Add(vertices);
-                }
-            }
-            return graph;
         }
         
     }

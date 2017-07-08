@@ -27,6 +27,23 @@ namespace LogiqueMetier
                 coordonnees = value;
             }
         }
+
+        public int Height
+        {
+            get
+            {
+                return height;
+            }
+        }
+
+        public int Width
+        {
+            get
+            {
+                return width;
+            }
+        }
+
         // -- END Accesseur -- //
         // ---------------------- //
 
@@ -44,9 +61,9 @@ namespace LogiqueMetier
             Thread.Sleep(10);
             if (new Random().Next(100) < this.pourcentageObstacle)
             {                
-                for (int yCoordonnnees = 0; yCoordonnnees < height; yCoordonnnees++)
+                for (int yCoordonnnees = 0; yCoordonnnees < Height; yCoordonnnees++)
                 {
-                    for (int xCoordonnnees = 0; xCoordonnnees < width; xCoordonnnees++)
+                    for (int xCoordonnnees = 0; xCoordonnnees < Width; xCoordonnnees++)
                     {
                         return isObstacleSet = addObstacle(x, y);
                     }
@@ -70,7 +87,7 @@ namespace LogiqueMetier
             {
                 Obstacle obstacle = new Obstacle(x, y);
                 // On ajoute l'obstacle à l'emplacement spécifié
-                Coordonnees.Coordoonees[this.height * y + x] = obstacle;
+                Coordonnees.Coordoonees[this.Height * y + x] = obstacle;
                 return true;
             }
             else
@@ -86,7 +103,7 @@ namespace LogiqueMetier
             {
                 this.rover = rover;
                 rover.setPosition(x, y);
-                Coordonnees.Coordoonees[this.height * y + x] = rover;
+                Coordonnees.Coordoonees[this.Height * y + x] = rover;
                 return true;
             }else
             {
@@ -102,13 +119,13 @@ namespace LogiqueMetier
         public IElement getXY(int x, int y)
         {
             // On ajoute le rover à l'emplacement spécifié
-            return Coordonnees.Coordoonees[this.height * y + x];
+            return Coordonnees.Coordoonees[this.Height * y + x];
         }
 
         public bool isEmpty(int x, int y)
         {
             List<IElement> coordonneesDeLaCarte = Coordonnees.Coordoonees;
-            if (coordonneesDeLaCarte[this.height * y + x] == null)
+            if (coordonneesDeLaCarte[this.Height * y + x] == null)
             {
                 return true;
             }
