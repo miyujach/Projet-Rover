@@ -8,13 +8,12 @@ namespace LogiqueMetier
 {
     public interface ICoordonnee
     {
-        IElement getCoordonnee(int x, int y);
-        List<NeightborhoodInfos> getNeightborhood(int x, int y);
+        Node getCoordonnee(int x, int y);
+        List<NeightborhoodNode> getNeightborhood(int x, int y);
         int[] validCoordonnee(int x, int y);
         int Height { get; }
         int Width { get; }
-        List<IElement> Coordoonees { get; set; }
-        List<Dictionary<int[], Dictionary<int[], int>>> generateGraph();
+        List<Node> ListNodes { get; set; }
 
     }
 }

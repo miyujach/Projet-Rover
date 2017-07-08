@@ -9,25 +9,21 @@ namespace LogiqueMetier
     public class Coordonnee : ICoordonnee
     {
         private int width, height;
-        // Comment je peux ajouter plusieurs type d'objet dans un array ? int, string, Voiture, Moto, ...
-        // Je dois ajouter dans la carte 
-        //public Element[,] coordonnee;
-        //private IEnumerable<Coordonnee> enumerationCoordoonee;
-        private List<IElement> coordoonees = new List<IElement>();
-
+        private List<Node> listNodes = new List<Node>();
+        //private List<IElement> coordoonees = new List<IElement>();
 
         // ------------------------ //
         // -- START Accesseur -- //
-        public List<IElement> Coordoonees
+        public List<Node> ListNodes
         {
             get
             {
-                return coordoonees;
+                return listNodes;
             }
 
             set
             {
-                coordoonees = value;
+                listNodes = value;
             }
         }
 
@@ -58,22 +54,25 @@ namespace LogiqueMetier
             this.height = height;
  
              
-            List<IElement> coordonnee = new List<IElement>();
+            List<Node> theNode = new List<Node>();
             
             for (int y = 0; y < this.Height; y++)
             {
                 for (int x = 0; x < this.width; x++)
                 {
                     // Au debut toutes les cases sont vides --> Ce sont des objets qui sont ajoutés ici (Rover / Obstacle / null)
-                    coordonnee.Add(null);
+                    Node node = new Node();
+                    node.x = x;
+                    node.y = y;
+                    node.element = null;
+                    theNode.Add(node);
                 }
-                
             }
-            this.coordoonees = coordonnee;
-            Console.WriteLine("Nombre de coordonnées : " + coordonnee.Count);
+            this.listNodes = theNode;
+            Console.WriteLine("Nombre de coordonnées : " + listNodes.Count);
         }
 
-        public IElement getCoordonnee(int x, int y)
+        public Node getCoordonnee(int x, int y)
         {
 
             //Il List faut que je return le bon index de la list en fonction de X et de Y
@@ -81,15 +80,14 @@ namespace LogiqueMetier
             int indexList = (this.height) * y + x;
             //Console.WriteLine("Get coordonnées à l'index suivant : height = {0} - x = {1} - y = {2} || index {3}", this.height, x, y, indexList);
 
-            if (this.coordoonees[indexList] == null)
+            if (this.listNodes[indexList].element == null)
             {
-
                 Console.Write("-");
             }
 
             try
             {
-                return this.coordoonees[(this.height) * y + x];
+                return this.listNodes[(this.height) * y + x];
             }
             catch (System.ArgumentOutOfRangeException e)
             {
@@ -97,16 +95,15 @@ namespace LogiqueMetier
                 throw new System.ArgumentOutOfRangeException("Recherche coordonnées (getCoordonnee): Les coordonnées recherchées sont en dehors de la carte.", e);
             }
         }
-        
 
-        public List<NeightborhoodInfos> getNeightborhood(int x, int y)
+        public List<NeightborhoodNode> getNeightborhood(int x, int y)
         {
             List<int[]> neitghtborhoorIndex = new List<int[]>();
             List<IElement> neitghtborhoorCoordonnee = new List<IElement>();
             int limiteTableauX = this.width - 1,
                 limiteTableauY = this.Height - 1;
 
-            List<NeightborhoodInfos> informationsVoisinage = new List<NeightborhoodInfos>();
+            List<NeightborhoodNode> informationsVoisinage = new List<NeightborhoodNode>();
 
             try
             {
@@ -116,24 +113,24 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = limiteTableauY;
                     int ponderation = 1;
 
-                    NeightborhoodInfos informationVoisinTop = new NeightborhoodInfos();
-                    informationVoisinTop.ponderation = ponderation;
-                    informationVoisinTop.xIndexCase = xVoisin;
-                    informationVoisinTop.yIndexCase = yVoisin;
-                    informationVoisinTop.indexElement = getCoordonnee(xVoisin, yVoisin);
-                    informationsVoisinage.Add(informationVoisinTop);
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
+                    informationsVoisinage.Add(informationVoisin);
                 }
                 else
                 {
                     int xVoisin = x, yVoisin = y - 1;
                     int ponderation = 2;
 
-                    NeightborhoodInfos informationVoisinTop = new NeightborhoodInfos();
-                    informationVoisinTop.ponderation = ponderation;
-                    informationVoisinTop.xIndexCase = xVoisin;
-                    informationVoisinTop.yIndexCase = yVoisin;
-                    informationVoisinTop.indexElement = getCoordonnee(xVoisin, yVoisin);
-                    informationsVoisinage.Add(informationVoisinTop);
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
+                    informationVoisin.ponderation = ponderation;
+                    informationVoisin.xIndexCase = xVoisin;
+                    informationVoisin.yIndexCase = yVoisin;
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
+                    informationsVoisinage.Add(informationVoisin);
                 }
 
 
@@ -144,11 +141,11 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = 0;
                     int ponderation = 1;
 
-                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.xIndexCase = xVoisin;
                     informationVoisin.yIndexCase = yVoisin;
-                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
                     informationsVoisinage.Add(informationVoisin);
                 }
                 else
@@ -156,11 +153,11 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = y + 1;
                     int ponderation = 2;
 
-                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.xIndexCase = xVoisin;
                     informationVoisin.yIndexCase = yVoisin;
-                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
                     informationsVoisinage.Add(informationVoisin);
                 }
 
@@ -171,11 +168,11 @@ namespace LogiqueMetier
                     int xVoisin = limiteTableauX, yVoisin = y;
                     int ponderation = 1;
 
-                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.xIndexCase = xVoisin;
                     informationVoisin.yIndexCase = yVoisin;
-                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
                     informationsVoisinage.Add(informationVoisin);
                 }
                 else
@@ -183,11 +180,11 @@ namespace LogiqueMetier
                     int xVoisin = x - 1, yVoisin = y;
                     int ponderation = 2;
 
-                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.xIndexCase = xVoisin;
                     informationVoisin.yIndexCase = yVoisin;
-                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
                     informationsVoisinage.Add(informationVoisin);
                 }
 
@@ -199,11 +196,11 @@ namespace LogiqueMetier
                     int xVoisin = 0, yVoisin = y;
                     int ponderation = 1;
 
-                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.xIndexCase = xVoisin;
                     informationVoisin.yIndexCase = yVoisin;
-                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
                     informationsVoisinage.Add(informationVoisin);
                 }
                 else
@@ -211,11 +208,11 @@ namespace LogiqueMetier
                     int xVoisin = x + 1, yVoisin = y;
                     int ponderation = 2;
 
-                    NeightborhoodInfos informationVoisin = new NeightborhoodInfos();
+                    NeightborhoodNode informationVoisin = new NeightborhoodNode();
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.xIndexCase = xVoisin;
                     informationVoisin.yIndexCase = yVoisin;
-                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin);
+                    informationVoisin.indexElement = getCoordonnee(xVoisin, yVoisin).element;
                     informationsVoisinage.Add(informationVoisin);
                 }
                 return informationsVoisinage;
@@ -265,7 +262,7 @@ namespace LogiqueMetier
         
     }
 
-    public struct NeightborhoodInfos
+    public struct NeightborhoodNode
     {
         public int ponderation;
         public int xIndexCase;

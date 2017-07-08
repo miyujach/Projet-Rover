@@ -61,12 +61,12 @@ namespace LogiqueMetier
                 }
                 Console.WriteLine("Valid index :" + validIndex[0] + " " + validIndex[1]);
 
-                List<IElement> coordonnees = carte.Coordonnees.Coordoonees;
+                List<Node> listeDesNodes = carte.Coordonnees.ListNodes;
 
                 if (carte.isEmpty(validIndex[0], validIndex[1]))
                 {
-                    coordonnees[carte.Coordonnees.Height * this.y + this.x] = null;
-                    coordonnees[carte.Coordonnees.Height * validIndex[1] + validIndex[0]] = this;
+                    listeDesNodes[carte.Coordonnees.Height * this.y + this.x].element = null;
+                    listeDesNodes[carte.Coordonnees.Height * validIndex[1] + validIndex[0]].element = this;
 
                     // Ajout des nouvelles coordonnées du robot
                     this.x = validIndex[0];
@@ -78,13 +78,13 @@ namespace LogiqueMetier
        
 
 
-        public void moveTo(int x, int y)
+        public void moveTo(int xDestination, int yDestination)
         {
             try
             {
                 //Dijkstrat a faire ici
-                IElement depart = carte.Coordonnees.getCoordonnee(this.x, this.y);
-                IElement arrivee = carte.Coordonnees.getCoordonnee(x, y);
+                Node depart = carte.Coordonnees.getCoordonnee(this.x, this.y);
+                Node arrivee = carte.Coordonnees.getCoordonnee(xDestination, yDestination);
                 //this.graph.shortest_path(depart, arrivee).ForEach(v => Console.WriteLine(v));
             }
             catch (System.ArgumentOutOfRangeException e)

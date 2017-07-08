@@ -16,7 +16,7 @@ namespace Projet_Rover
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
-            ICoordonnee coordonnees = carte.Coordonnees;
+            ICoordonnee casesPresenteSurLaCarte = carte.Coordonnees;
 
             Graph graph = new Graph(carte);
             Rover rover = new Rover(carte, graph);
@@ -33,15 +33,15 @@ namespace Projet_Rover
             {
                 for (int x = 0; x < width; x++)
                 {
-                    // Il faut ajouter un obstacle ici
-                    //Console.WriteLine(height * y + x);
+                    // Ajoute les obstacles de manière aléatoire
                     carte.generateRandomObstacle(x, y);
-                    Console.Write(coordonnees.getCoordonnee(x, y) + " ");
+
+                    // Affiche la grille avec les éléments présent dans celle-ci
+                    Console.Write(casesPresenteSurLaCarte.getCoordonnee(x, y).element + " ");
                 }
                 Console.WriteLine();
             }
-
-            //coordonnees.generateGraph();
+            
             graph.generateGraph();
             rover.moveTo(4, 4);
 

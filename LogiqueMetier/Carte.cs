@@ -13,7 +13,7 @@ namespace LogiqueMetier
         private ICoordonnee coordonnees;
         private Rover rover;
 
-        // ------------------------ //
+        // ---------------------- //
         // -- START Accesseur  -- //
         public ICoordonnee Coordonnees
         {
@@ -45,7 +45,7 @@ namespace LogiqueMetier
         }
 
         // -- END Accesseur -- //
-        // ---------------------- //
+        // ------------------- //
 
         public Carte(int width, int height, int pourcentage)
         {
@@ -84,10 +84,8 @@ namespace LogiqueMetier
         public bool addObstacle(int x, int y)
         {            
             if (isEmpty(x, y))
-            {
-                Obstacle obstacle = new Obstacle(x, y);
-                // On ajoute l'obstacle à l'emplacement spécifié
-                Coordonnees.Coordoonees[this.Height * y + x] = obstacle;
+            {                
+                Coordonnees.ListNodes[this.Height * y + x].element = new Obstacle(x, y);
                 return true;
             }
             else
@@ -103,7 +101,7 @@ namespace LogiqueMetier
             {
                 this.rover = rover;
                 rover.setPosition(x, y);
-                Coordonnees.Coordoonees[this.Height * y + x] = rover;
+                Coordonnees.ListNodes[this.Height * y + x].element = rover;
                 return true;
             }else
             {
@@ -118,14 +116,12 @@ namespace LogiqueMetier
 
         public IElement getXY(int x, int y)
         {
-            // On ajoute le rover à l'emplacement spécifié
-            return Coordonnees.Coordoonees[this.Height * y + x];
+            return Coordonnees.ListNodes[this.Height * y + x].element;
         }
 
         public bool isEmpty(int x, int y)
         {
-            List<IElement> coordonneesDeLaCarte = Coordonnees.Coordoonees;
-            if (coordonneesDeLaCarte[this.Height * y + x] == null)
+            if (Coordonnees.ListNodes[this.Height * y + x].element == null)
             {
                 return true;
             }
