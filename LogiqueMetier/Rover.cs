@@ -80,10 +80,19 @@ namespace LogiqueMetier
 
         public void moveTo(int x, int y)
         {
-            //Dijkstrat a faire ici
-            IElement depart = carte.Coordonnees.getCoordonnee(this.x, this.y);
-            IElement arrivee = carte.Coordonnees.getCoordonnee(x, y);
-            this.graph.shortest_path(depart, arrivee).ForEach(v => Console.WriteLine(v));
+            try
+            {
+                //Dijkstrat a faire ici
+                IElement depart = carte.Coordonnees.getCoordonnee(this.x, this.y);
+                IElement arrivee = carte.Coordonnees.getCoordonnee(x, y);
+                //this.graph.shortest_path(depart, arrivee).ForEach(v => Console.WriteLine(v));
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                System.Console.WriteLine(e.Message);
+                // Set IndexOutOfRangeException to the new exception's InnerException.
+                throw new System.ArgumentOutOfRangeException("Le robot ne peut pas être placé en dehors des coordonnées de la carte, veuillez placer le robot entre 0 et " + carte.Coordonnees.Width + " sur l'axe des X et entre 0 et " + carte.Coordonnees.Height + " sur l'axe des Y", e);
+            }
         }
     }
 }

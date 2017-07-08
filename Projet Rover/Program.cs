@@ -12,7 +12,7 @@ namespace Projet_Rover
         public static void Main(string[] args)
         {
             
-            int width = 10, height = 10, pourcentage = 20;
+            int width = 5, height = 5, pourcentage = 20;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
@@ -21,7 +21,6 @@ namespace Projet_Rover
             Graph graph = new Graph();
             Rover rover = new Rover(carte, graph);
             carte.addRover(0, 0, rover);
-
 
             sequenceMouvement.Add("t");
             sequenceMouvement.Add("t");
@@ -42,35 +41,21 @@ namespace Projet_Rover
                 Console.WriteLine();
             }
 
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    // Il faut ajouter un obstacle ici
-                    List<IElement> voisinageCaseEnCour = carte.Coordonnees.getNeightborhood(x, y);
-                    Dictionary<IElement, int> dico = new Dictionary<IElement, int>();
-                    foreach (IElement voisin in voisinageCaseEnCour)
-                    {
-                        // La valeur ne peut pas être null (voisin), cela vient du fait que quand je spawn le carte, j'initialise toutes les cases à null le premier coup
-                        dico.Add(voisin, 1);
-                    }
-
-                    graph.add_vertex(carte.Coordonnees.getCoordonnee(x, y), dico);
-                }
-                Console.WriteLine();
-            }
-
-            rover.moveTo(9, 9);
+            coordonnees.generateGraph();
 
 
 
+
+            rover.moveTo(4, 9);
+
+
+            /*
             List<IElement> neightborhood = coordonnees.getNeightborhood(0, 0);
             foreach(IElement item in neightborhood)
             {
                 Console.WriteLine("Voisin : " + item);
             }
-
+            */
             
 
             Console.ReadLine();
