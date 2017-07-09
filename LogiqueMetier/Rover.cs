@@ -85,6 +85,8 @@ namespace LogiqueMetier
                 //Dijkstrat a faire ici
                 Node depart = carte.Coordonnees.getCoordonnee(this.x, this.y);
                 Node arrivee = carte.Coordonnees.getCoordonnee(xDestination, yDestination);
+                List<Dictionary<Node, Dictionary<NeightborhoodNode, int>>> listVertex = graph.generateGraph();
+                Dijkstra shortestPath = new Dijkstra(depart, arrivee, listVertex);
                 //this.graph.shortest_path(depart, arrivee).ForEach(v => Console.WriteLine(v));
             }
             catch (System.ArgumentOutOfRangeException e)

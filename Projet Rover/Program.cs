@@ -42,7 +42,6 @@ namespace Projet_Rover
                 Console.WriteLine();
             }
             
-            graph.generateGraph();
             rover.moveTo(4, 4);
 
 
