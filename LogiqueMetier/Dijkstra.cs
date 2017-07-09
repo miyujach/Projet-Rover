@@ -18,18 +18,23 @@ namespace LogiqueMetier
             this.vertices = listVertex;
         }
 
+
+
+
         public List<Node> shortest_path()
         {
-            var previous = new Dictionary<Node, Node>();
-            var distances = new Dictionary<Node, int>();
-            var nodes = new List<Node>();
+            Dictionary<Node, Node> previous = new Dictionary<Node, Node>();
+            Dictionary<Node, int> distances = new Dictionary<Node, int>();
+            List<Node> nodes = new List<Node>();
             Node start = this.depart;
             Node finish = this.arrivee;
 
 
             List<Node> path = null;
+            
 
-            foreach (var vertex in vertices)
+            //Je met dans distance la ponderation de CHAQUE vertex
+            foreach (KeyValuePair<Node, Dictionary<Node, int>> vertex in vertices)
             {
                 if (vertex.Key == start)
                 {
@@ -40,8 +45,11 @@ namespace LogiqueMetier
                     distances[vertex.Key] = int.MaxValue;
                 }
 
+                Console.WriteLine("J'ajoute la node dans le dictionary 'Dictionary<Node, int> distances' : [ {0}, {1} ] - {2}", vertex.Key.x, vertex.Key.y, vertex.Key.element);
                 nodes.Add(vertex.Key);
             }
+
+
             
             while (nodes.Count != 0)
             {
@@ -51,6 +59,7 @@ namespace LogiqueMetier
                 var smallest = nodes[0];
                 
                 nodes.Remove(smallest);
+                Console.WriteLine("Je supprime du dictonary la node suivante' : [ {0}, {1} ] - {2}", nodes[0].x, nodes[0].y, nodes[0].element);
 
                 if (smallest == finish)
                 {
@@ -69,21 +78,21 @@ namespace LogiqueMetier
                     break;
                 }
 
-                
-
-                foreach (var neighbor in vertices[smallest])
+                var vertice = vertices[smallest];
+                foreach (KeyValuePair<Node, int> neighbor in vertices[smallest])
                 {
                     try
                     {
+                        Console.WriteLine("La node que je demande : [{0},{1}]", neighbor.Key.x, neighbor.Key.y);
+                        foreach (var cequiyadansdistance in distances)
+                        {
+                            Console.WriteLine("Node dans 'DISTANCE' - [{0}, {1}]", cequiyadansdistance.Key.x, cequiyadansdistance.Key.y);
+
+                        }
+                        Console.WriteLine("La node retournée {0}", distances[neighbor.Key]);
+                        Node node = neighbor.Key;
                         int alt = distances[smallest] + neighbor.Value;
-                        Console.WriteLine("smallest : " + smallest);
-                        Console.WriteLine("distances[smallest] : " + distances[smallest]);
-                        Console.WriteLine("neighbor.Value : " + neighbor.Value);
-                        Console.WriteLine("neighbor : " + neighbor);
-                        Console.WriteLine("alt : " + alt);
-                        Console.WriteLine("distances : " + distances);
-                        Console.WriteLine("neighbor.Key : " + neighbor.Key);
-                        Console.WriteLine(" distances[neighbor.Key] : " + distances[neighbor.Key]);
+                        
 
                         if (alt < distances[neighbor.Key])
                         {
@@ -91,9 +100,13 @@ namespace LogiqueMetier
                             previous[neighbor.Key] = smallest;
                         }
                     }
-                    catch(KeyNotFoundException ex)
+                    catch (KeyNotFoundException e)
                     {
-                        //Console.WriteLine("Exception :" + ex);
+                        Console.WriteLine(e.Message);
+
+                        Console.WriteLine("La node n'existe pas dans le Dictionary 'Distance' : [ {0}, {1} ] - {2}", neighbor.Key.x, neighbor.Key.y, neighbor.Key.element);
+
+                        throw new KeyNotFoundException(e.Message);
                     }
                 }
             }

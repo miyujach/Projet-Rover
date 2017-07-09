@@ -12,7 +12,7 @@ namespace Projet_Rover
         public static void Main(string[] args)
         {
             
-            int width = 2, height = 2, pourcentage = 0;
+            int width = 2, height = 2, pourcentage = 50;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
