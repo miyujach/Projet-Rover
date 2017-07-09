@@ -6,3 +6,11 @@ C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\Projet 
 C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\Projet Rover\obj\Debug\Projet Rover.csprojResolveAssemblyReference.cache
 C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\Projet Rover\obj\Debug\Projet Rover.exe
 C:\Users\Michael Jach\Documents\Visual Studio 2015\Projects\Projet Rover\Projet Rover\obj\Debug\Projet Rover.pdb
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\bin\Debug\Projet Rover.exe.config
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\bin\Debug\Projet Rover.exe
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\bin\Debug\Projet Rover.pdb
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\bin\Debug\LogiqueMetier.dll
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\bin\Debug\LogiqueMetier.pdb
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\obj\Debug\Projet Rover.csprojResolveAssemblyReference.cache
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\obj\Debug\Projet Rover.exe
+C:\Users\micha\OneDrive\Documents\GitHub\Projet-Rover\Projet Rover\obj\Debug\Projet Rover.pdb

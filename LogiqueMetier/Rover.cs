@@ -9,23 +9,36 @@ namespace LogiqueMetier
 {
     public class Rover : Element, IRover
     {
-        private int x;
-        private int y;
+        private int xPositionRover;
+        private int yPositionRover;
         private Graph graph;
         private ICarte carte;
-        private IRover rover;
-        
+        private Node nodeQuiContientRover;
+
+
+        // ---------------------- //
+        // -- START Accesseur  -- //
+
+        public int XPositionRover { get => xPositionRover; set => xPositionRover = value; }
+        public int YPositionRover { get => yPositionRover; set => yPositionRover = value; }
+
+        // -- END Accesseur  -- //
+        // -------------------- //
+
+
         public Rover(ICarte carte, Graph graph)
         {
             this.carte = carte;
-            this.rover = carte.getRover();
+            this.graph = graph;
         }
 
 
         public void setPosition(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.xPositionRover = x;
+            this.yPositionRover = y;
+            this.nodeQuiContientRover = this.carte.getRover();
+            Console.WriteLine("Position du robot : x = " + this.xPositionRover + " , y = " + this.yPositionRover);
         }
 
         public override ICoordonnee getPosition()
@@ -44,16 +57,16 @@ namespace LogiqueMetier
                 switch (mouvement)
                 {
                     case "t":
-                        validIndex = carte.Coordonnees.validCoordonnee(x, y - 1);
+                        validIndex = carte.Coordonnees.validCoordonnee(XPositionRover, YPositionRover - 1);
                         break;
                     case "b":
-                        validIndex = carte.Coordonnees.validCoordonnee(x, y + 1);
+                        validIndex = carte.Coordonnees.validCoordonnee(XPositionRover, YPositionRover + 1);
                         break;
                     case "r":
-                        validIndex = carte.Coordonnees.validCoordonnee(x - 1, y);
+                        validIndex = carte.Coordonnees.validCoordonnee(XPositionRover - 1, YPositionRover);
                         break;
                     case "l":
-                        validIndex = carte.Coordonnees.validCoordonnee(x + 1, y);
+                        validIndex = carte.Coordonnees.validCoordonnee(XPositionRover + 1, YPositionRover);
                         break;
                     default:
                         Console.WriteLine("La direction fourni n'existe pas. Seul les directions suivantes peuvent être utilisées : t = top / b = bottom / r = right / l = left");
@@ -65,29 +78,34 @@ namespace LogiqueMetier
 
                 if (carte.isEmpty(validIndex[0], validIndex[1]))
                 {
-                    listeDesNodes[carte.Coordonnees.Height * this.y + this.x].element = null;
+                    listeDesNodes[carte.Coordonnees.Height * this.YPositionRover + this.XPositionRover].element = null;
                     listeDesNodes[carte.Coordonnees.Height * validIndex[1] + validIndex[0]].element = this;
 
                     // Ajout des nouvelles coordonnées du robot
-                    this.x = validIndex[0];
-                    this.y = validIndex[1];
+                    this.XPositionRover = validIndex[0];
+                    this.YPositionRover = validIndex[1];
+                }
+                else
+                {
+                    Console.WriteLine("Le rover ne peut pas aller sur la case suivante car celle-ci n'est pas vide. | Case suivante =  [{0}, {1}] = {2}.", validIndex[0], validIndex[1], listeDesNodes[carte.Coordonnees.Height * this.YPositionRover + this.XPositionRover].element);
                 }
             }
         }
 
        
 
-
         public void moveTo(int xDestination, int yDestination)
         {
             try
             {
-                //Dijkstrat a faire ici
-                Node depart = carte.Coordonnees.getCoordonnee(this.x, this.y);
-                Node arrivee = carte.Coordonnees.getCoordonnee(xDestination, yDestination);
-                List<Dictionary<Node, Dictionary<NeightborhoodNode, int>>> listVertex = graph.generateGraph();
-                Dijkstra shortestPath = new Dijkstra(depart, arrivee, listVertex);
-                //this.graph.shortest_path(depart, arrivee).ForEach(v => Console.WriteLine(v));
+                Node positionRoverDepart = this.carte.getRover();
+                Node positionRoverArrivee = this.carte.Coordonnees.getCoordonnee(xDestination, yDestination);
+                Dictionary<Node, Dictionary<Node, int>> listVertex = this.graph.generateGraph();
+                
+                Dijkstra shortestPath = new Dijkstra(positionRoverDepart, positionRoverArrivee, listVertex);
+
+                Console.WriteLine("Path :" + shortestPath.shortest_path());
+                //shortestPath.shortest_path().ForEach(x => Console.WriteLine(x));
             }
             catch (System.ArgumentOutOfRangeException e)
             {

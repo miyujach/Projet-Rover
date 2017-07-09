@@ -9,7 +9,7 @@ namespace LogiqueMetier
     public interface ICoordonnee
     {
         Node getCoordonnee(int x, int y);
-        List<NeightborhoodNode> getNeightborhood(int x, int y);
+        List<Node> getNeightborhood(int x, int y);
         int[] validCoordonnee(int x, int y);
         int Height { get; }
         int Width { get; }

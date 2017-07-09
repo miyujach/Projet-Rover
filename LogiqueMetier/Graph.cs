@@ -10,55 +10,70 @@ namespace LogiqueMetier
     {
         private ICarte carte;
 
+        // Vertices
+        Dictionary<Node, Dictionary<Node, int>> vertices = new Dictionary<Node, Dictionary<Node, int>>();
+
+        // Vertex
+        //Dictionary<Node, Dictionary<NeightborhoodNode, int>> vertex = new Dictionary<Node, Dictionary<NeightborhoodNode, int>>();
+
+
         public Graph(ICarte carte)
         {
             this.carte = carte;
         }
 
+
+        public void add_vertex(Node name, Dictionary<Node, int> edges)
+        {
+            vertices[name] = edges;
+        }
+
+        public void list_vertex()
+        {
+            foreach (var vertex in this.vertices)
+            {
+                Console.WriteLine("----");
+                Console.WriteLine("CaseEnCour : [" + vertex.Key.x + "," + vertex.Key.y + "]");
+
+                foreach (var neightborhoor in vertex.Value)
+                {
+                    Console.Write("{ [" + neightborhoor.Key.x + "," + neightborhoor.Key.y + "], " + neightborhoor.Key.ponderation + " }, ");
+                }
+                Console.WriteLine("\n");
+            }
+        }
+
         // Dictionary<pointInitial, Dictionary<pointFinal, ponderation>>> generateGraph
-        public List<Dictionary<Node, Dictionary<NeightborhoodNode, int>>> generateGraph()
+        public Dictionary<Node, Dictionary<Node, int>> generateGraph()
         {
             List<Node> listeNode = carte.Coordonnees.ListNodes;
-
-            // Graph qui contient la liste des vertex
-            List<Dictionary<Node, Dictionary<NeightborhoodNode, int>>> graph = new List<Dictionary<Node, Dictionary<NeightborhoodNode, int>>>();
-
-            // Vertex
-            Dictionary<Node, Dictionary<NeightborhoodNode, int>> vertex = new Dictionary<Node, Dictionary<NeightborhoodNode, int>>();
 
             for (int y = 0; y < carte.Height; y++)
             {
                 for (int x = 0; x < carte.Width; x++)
                 {
                     Node currentNode = listeNode[carte.Height * y + x];
-                    List<NeightborhoodNode> voisinageCaseEnCour = carte.Coordonnees.getNeightborhood(x, y);
+                    List<Node> voisinageCaseEnCour = carte.Coordonnees.getNeightborhood(x, y);
+                    Node nodeEnCour = carte.Coordonnees.getCoordonnee(x, y);
 
                     
-                    /*
-                     * Création d'un nouveau Vertex 
-                     * voisinsDuPointEnCour =  { pointFinal, ponderation };
-                    */
-                    Dictionary<NeightborhoodNode, int> voisinsDuPointEnCour = new Dictionary<NeightborhoodNode, int>();
-                    foreach (NeightborhoodNode voisin in voisinageCaseEnCour)
+                    Dictionary <Node, int> voisinsDuPointEnCour = new Dictionary<Node, int>();
+                    foreach (Node voisin in voisinageCaseEnCour)
                     {
-                        if (voisin.indexElement == null || voisin.indexElement is IRover)
+                        // Ajoute seulement les voisins qui sont vide ou qui contiennent le Rover
+                        if (voisin.element == null || voisin.element is IRover)
                         {
-                            Console.WriteLine("CaseEnCour : [" + x + "," + y + "] | Case analysée : [" + voisin.xIndexCase + "," + voisin.yIndexCase + "] - Ponderation case = " + voisin.ponderation);
                             voisinsDuPointEnCour.Add( voisin, voisin.ponderation);
                         }
                     }
-                    Console.WriteLine("----");
-
-
-                    //Dictionnary vertex = (Node, { NeightborhoodNode, ponderation }) ;
-                    vertex.Add(currentNode, voisinsDuPointEnCour);
-
-                    //Liste de l'ensemble des vertex de la carte
-                    //Représente toutes les routes entre les points (vides) avec les ponderations
-                    graph.Add(vertex);
+                    add_vertex(nodeEnCour, voisinsDuPointEnCour);
                 }
             }
-            return graph;
+
+            // Liste toutes les vertex
+            list_vertex();
+
+            return vertices;
         }
 
 

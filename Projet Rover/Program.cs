@@ -12,7 +12,7 @@ namespace Projet_Rover
         public static void Main(string[] args)
         {
             
-            int width = 5, height = 5, pourcentage = 20;
+            int width = 2, height = 2, pourcentage = 0;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
@@ -24,7 +24,7 @@ namespace Projet_Rover
 
             sequenceMouvement.Add("t");
             sequenceMouvement.Add("t");
-            rover.moveSequence(sequenceMouvement);
+            //rover.moveSequence(sequenceMouvement);
 
             // AJouter les obstacle 
             //carte.addElement(1, 1, rover);
@@ -42,7 +42,7 @@ namespace Projet_Rover
                 Console.WriteLine();
             }
             
-            rover.moveTo(4, 4);
+            rover.moveTo(1, 1);
 
 
             /*

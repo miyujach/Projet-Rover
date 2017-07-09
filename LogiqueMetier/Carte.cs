@@ -97,9 +97,11 @@ namespace LogiqueMetier
 
         public bool addRover(int x, int y, Rover rover)
         {
+            Console.WriteLine("Rover :" + rover);
             if (isEmpty(x, y))
             {
                 this.rover = rover;
+                
                 rover.setPosition(x, y);
                 Coordonnees.ListNodes[this.Height * y + x].element = rover;
                 return true;
@@ -109,15 +111,22 @@ namespace LogiqueMetier
             }
         }
 
-        public IRover getRover()
-        {
-            return rover;
+        public Node getRover()
+        {            
+            return Coordonnees.getCoordonnee(rover.XPositionRover, rover.YPositionRover);
         }
 
+
+        public Node getXY(int x, int y)
+        {
+            return Coordonnees.ListNodes[this.Height * y + x];
+        }
+        /*
         public IElement getXY(int x, int y)
         {
             return Coordonnees.ListNodes[this.Height * y + x].element;
         }
+        */
 
         public bool isEmpty(int x, int y)
         {

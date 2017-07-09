@@ -8,12 +8,14 @@ namespace LogiqueMetier
 {
     public interface ICarte
     {
-        IElement getXY(int x, int y);
+        //IElement getXY(int x, int y);
+        Node getXY(int x, int y);
         Boolean isEmpty(int x, int y);
         Boolean addElement(int x, int y, IElement element);
         Boolean addRover(int x, int y, Rover rover);
         Boolean addObstacle(int x, int y);
-        IRover getRover();
+        Node getRover();
+        //IRover getRover();
         ICoordonnee Coordonnees { get; set; }
         int Width { get; }
         int Height { get; }
