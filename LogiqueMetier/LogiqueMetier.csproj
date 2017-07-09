@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Carte.cs" />
     <Compile Include="Coordonnee.cs" />
+    <Compile Include="Dijkstra.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="Interfaces\ICarte.cs" />

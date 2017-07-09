@@ -17,5 +17,11 @@ namespace LogiqueMetier
             this.arrivee = arrivee;
             this.listVertex = listVertex;
         }
+
+        private void exploreGraph()
+        {
+            // 1. Ajoute dans une liste tous les voisins du point de depart
+            // 2. Pour chaque voisin, 
+        }
     }
 }
