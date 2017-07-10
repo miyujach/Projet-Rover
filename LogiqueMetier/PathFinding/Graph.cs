@@ -11,7 +11,7 @@ namespace LogiqueMetier
         private ICarte carte;
 
         // Vertices
-        Dictionary<Node, Dictionary<Node, int>> vertices = new Dictionary<Node, Dictionary<Node, int>>();
+        private Dictionary<Node, List<Node>> vertices = new Dictionary<Node, List<Node>>();
 
         // Vertex
         //Dictionary<Node, Dictionary<NeightborhoodNode, int>> vertex = new Dictionary<Node, Dictionary<NeightborhoodNode, int>>();
@@ -23,7 +23,7 @@ namespace LogiqueMetier
         }
 
 
-        public void add_vertex(Node name, Dictionary<Node, int> edges)
+        public void add_vertex(Node name, List<Node> edges)
         {
             vertices[name] = edges;
         }
@@ -33,18 +33,18 @@ namespace LogiqueMetier
             foreach (var vertex in this.vertices)
             {
                 Console.WriteLine("----");
-                Console.WriteLine("CaseEnCour : [" + vertex.Key.x + "," + vertex.Key.y + "]");
+                Console.WriteLine("Le point X=" + vertex.Key.x + ", Y=" + vertex.Key.y);
 
                 foreach (var neightborhoor in vertex.Value)
                 {
-                    Console.Write("{ [" + neightborhoor.Key.x + "," + neightborhoor.Key.y + "], " + neightborhoor.Key.ponderation + " }, ");
+                    Console.WriteLine("Est relié au point X=" + neightborhoor.x + ", Y=" + neightborhoor.y + " avec une pondération de " + neightborhoor.ponderation);
                 }
                 Console.WriteLine("\n");
             }
         }
 
         // Dictionary<pointInitial, Dictionary<pointFinal, ponderation>>> generateGraph
-        public Dictionary<Node, Dictionary<Node, int>> generateGraph()
+        public Dictionary<Node, List<Node>> generateGraph()
         {
             List<Node> listeNode = carte.Coordonnees.ListNodes;
 
@@ -57,22 +57,20 @@ namespace LogiqueMetier
                     Node nodeEnCour = carte.Coordonnees.getCoordonnee(x, y);
 
                     
-                    Dictionary <Node, int> voisinsDuPointEnCour = new Dictionary<Node, int>();
+                    List<Node> voisinsDuPointEnCour = new List<Node>();
                     foreach (Node voisin in voisinageCaseEnCour)
                     {
                         // Ajoute seulement les voisins qui sont vide ou qui contiennent le Rover
                         if (voisin.element == null || voisin.element is IRover)
                         {
-                            voisinsDuPointEnCour.Add( voisin, voisin.ponderation);
+                            voisinsDuPointEnCour.Add(voisin);
                         }
                     }
-                    add_vertex(nodeEnCour, voisinsDuPointEnCour);
+                    add_vertex(currentNode, voisinsDuPointEnCour);
                 }
             }
 
-            // Liste toutes les vertex
             list_vertex();
-
             return vertices;
         }
 

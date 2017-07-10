@@ -12,7 +12,7 @@ namespace Projet_Rover
         public static void Main(string[] args)
         {
             
-            int width = 2, height = 2, pourcentage = 50;
+            int width = 10, height = 10, pourcentage = 100;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
@@ -20,15 +20,12 @@ namespace Projet_Rover
 
             Graph graph = new Graph(carte);
             Rover rover = new Rover(carte, graph);
-            carte.addRover(0, 0, rover);
+            carte.addRover(5, 5, rover);
 
             sequenceMouvement.Add("t");
             sequenceMouvement.Add("t");
             //rover.moveSequence(sequenceMouvement);
-
-            // AJouter les obstacle 
-            //carte.addElement(1, 1, rover);
-
+            
             for (int y =0; y < height; y++ )
             {
                 for (int x = 0; x < width; x++)
@@ -41,8 +38,21 @@ namespace Projet_Rover
                 }
                 Console.WriteLine();
             }
-            
-            rover.moveTo(1, 1);
+
+
+            // Je délace le robot sur un case précise
+            try
+            {
+                rover.moveTo(12, 9);
+            }
+            catch (CaseIsNotEmptyException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch(ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
 
             /*

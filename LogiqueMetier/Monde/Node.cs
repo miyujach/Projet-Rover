@@ -8,9 +8,9 @@ namespace LogiqueMetier
 {
     public class Node
     {
-        public int ponderation;
-        public int x;
-        public int y;
+        public int ponderation { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
         public IElement element { get; set; }
     }
 }

@@ -78,7 +78,7 @@ namespace LogiqueMetier
             //Il List faut que je return le bon index de la list en fonction de X et de Y
             //index = nbLigne * Ligne + Colone --> height * y + x
             int indexList = (this.height) * y + x;
-
+            
             if (this.listNodes[indexList].element == null)
             {
                 Console.Write("-");
@@ -112,7 +112,7 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = limiteTableauY;
                     int ponderation = 1;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -124,7 +124,7 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = y - 1;
                     int ponderation = 2;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -140,7 +140,7 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = 0;
                     int ponderation = 1;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -152,7 +152,7 @@ namespace LogiqueMetier
                     int xVoisin = x, yVoisin = y + 1;
                     int ponderation = 2;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -167,7 +167,7 @@ namespace LogiqueMetier
                     int xVoisin = limiteTableauX, yVoisin = y;
                     int ponderation = 1;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -179,7 +179,7 @@ namespace LogiqueMetier
                     int xVoisin = x - 1, yVoisin = y;
                     int ponderation = 2;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -195,7 +195,7 @@ namespace LogiqueMetier
                     int xVoisin = 0, yVoisin = y;
                     int ponderation = 1;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
@@ -207,7 +207,7 @@ namespace LogiqueMetier
                     int xVoisin = x + 1, yVoisin = y;
                     int ponderation = 2;
 
-                    Node informationVoisin = new Node();
+                    Node informationVoisin = getCoordonnee(xVoisin, yVoisin);
                     informationVoisin.ponderation = ponderation;
                     informationVoisin.x = xVoisin;
                     informationVoisin.y = yVoisin;
