@@ -10,7 +10,6 @@ namespace LogiqueMetier
     {
         private int width, height;
         private List<Node> listNodes = new List<Node>();
-        //private List<IElement> coordoonees = new List<IElement>();
 
         // ------------------------ //
         // -- START Accesseur -- //

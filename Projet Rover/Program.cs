@@ -11,8 +11,7 @@ namespace Projet_Rover
     {
         public static void Main(string[] args)
         {
-            
-            int width = 10, height = 10, pourcentage = 100;
+            int width = 10, height = 10, pourcentage = 15;
             List<String> sequenceMouvement = new List<String>();
 
             Carte carte = new Carte(width, height, pourcentage);
@@ -22,15 +21,17 @@ namespace Projet_Rover
             Rover rover = new Rover(carte, graph);
             carte.addRover(5, 5, rover);
 
+            // ---- START Déplacement manuel du robot ----
+            /*
             sequenceMouvement.Add("t");
             sequenceMouvement.Add("t");
-            //rover.moveSequence(sequenceMouvement);
-            
+            rover.moveSequence(sequenceMouvement);
+            */
+            // ---- END Déplacement manuel du robot ----
             for (int y =0; y < height; y++ )
             {
                 for (int x = 0; x < width; x++)
                 {
-                    // Ajoute les obstacles de manière aléatoire
                     carte.generateRandomObstacle(x, y);
 
                     // Affiche la grille avec les éléments présent dans celle-ci
@@ -39,30 +40,22 @@ namespace Projet_Rover
                 Console.WriteLine();
             }
 
-
-            // Je délace le robot sur un case précise
+            
             try
             {
-                rover.moveTo(12, 9);
+                // La ligne suivante permet de faire bouger de robot d'un point à un autre. (Dijsktra)
+                rover.moveTo(9, 9);
             }
             catch (CaseIsNotEmptyException e)
             {
+                Console.WriteLine("\n\n");
                 Console.WriteLine(e.Message);
             }
             catch(ArgumentOutOfRangeException e)
             {
-                Console.WriteLine(e.Message);
-            }
-
-
-            /*
-            List<IElement> neightborhood = coordonnees.getNeightborhood(0, 0);
-            foreach(IElement item in neightborhood)
-            {
-                Console.WriteLine("Voisin : " + item);
-            }
-            */
-            
+                Console.WriteLine("\n\n");
+                Console.WriteLine("Exception : La position de destination du robot est en dehors des limites de la carte. Veuillez spécifier des valeurs valides.");
+            }            
 
             Console.ReadLine();
             

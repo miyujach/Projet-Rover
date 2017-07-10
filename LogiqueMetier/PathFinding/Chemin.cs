@@ -13,8 +13,15 @@ namespace LogiqueMetier
 
         public Chemin()
         {
-            listeCoor = new List<Node>();
-            totalPonderation = 0;
+            try
+            {
+                listeCoor = new List<Node>();
+                totalPonderation = 0;
+            }
+            catch (OutOfMemoryException e)
+            {
+                Console.WriteLine("Exception : La grille est trop complexe. Celle-ci demande un calcul trop important en mémoire. Veuillez réduire sa taille, ou réduire le nombre d'obstacle." + e.Message);
+            }
         }
 
         public void AddCoordonnee(Node coor, int ponderation)
@@ -53,8 +60,14 @@ namespace LogiqueMetier
                     Chemin chem = new Chemin();
                     foreach (Node coordo in listeCoor)
                     {
-                       
-                        chem.AddCoordonnee(new Node() { x = coordo.x, y = coordo.y, ponderation = coordo.ponderation }, 0);
+                        try
+                        {
+                            chem.AddCoordonnee(new Node() { x = coordo.x, y = coordo.y, ponderation = coordo.ponderation }, 0);
+                        }
+                        catch(OutOfMemoryException e)
+                        {
+                            Console.WriteLine("Exception : La grille est trop complexe. Celle-ci demande un calcul trop important en mémoire. Veuillez réduire sa taille, ou réduire le nombre d'obstacle." + e.Message);
+                        }
                     }
                     chem.totalPonderation = this.totalPonderation;
 

@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\CaseIsNotEmptyException.cs" />
+    <Compile Include="MesExceptions\CaseIsNotEmptyException.cs" />
     <Compile Include="Monde\Carte.cs" />
     <Compile Include="PathFinding\Chemin.cs" />
     <Compile Include="Monde\Coordonnee.cs" />
